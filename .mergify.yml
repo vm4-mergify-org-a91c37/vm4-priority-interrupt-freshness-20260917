@@ -2,18 +2,18 @@ merge_queue:
   max_parallel_checks: 1
 queue_rules:
   - name: default
-    batch_size: 1
+    batch_size: 3
+    batch_max_wait_time: 1 min
     queue_conditions: true
     merge_conditions:
-      - check-success = vm4-priority-stable
-      - check-success = vm4-priority-fresh
+      - check-success = vm4-checked-car-gate
 priority_rules:
-  - name: urgent interruptor
+  - name: urgent checked-car interrupter
     conditions:
-      - label = vm4-high
+      - title = VM4 CHECKED CAR URGENT 20260929
     priority: high
     allow_checks_interruption: true
-  - name: normal victim
+  - name: normal checked-car batch
     conditions:
-      - label = vm4-low
+      - title != VM4 CHECKED CAR URGENT 20260929
     priority: low
